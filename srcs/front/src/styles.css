@@ -1,0 +1,50 @@
+/* styles.css (global) */
+body {
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+}
+
+.main-frame {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 65vh;
+  background-color: #ffffff6c;
+}
+
+/* Estilos para enlaces */
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  color: #2b2b2b9d; /* Cambia el color según tus preferencias */
+}
+
+a:visited {
+  color: #2b2b2b; /* Establece el mismo color que el enlace no visitado */
+}
+
+.button {
+  background-color: #f1b307;
+  font-size: 24px;
+  font-weight: bold;
+  color: #000000cb;
+  padding: 10px 16px;
+  margin: 10px;
+  border: none;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+}
+      
+.button:hover {
+  background-color: #f1b307bd;
+}
+
+/* .footer {
+  background-color: #333;
+  color: #fff;
+} */
+

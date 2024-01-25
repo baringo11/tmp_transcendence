@@ -1,0 +1,55 @@
+version: '3.8'
+
+volumes:
+  database_volume:
+    driver: local
+    driver_opts:
+        type: none
+        o: bind
+        device: "./data/db"
+
+services:
+  back:
+          build: srcs/back/
+          env_file:
+            - srcs/back/.env
+          ports:
+            - 3000:3000
+          depends_on:
+            - database
+          volumes:
+            - ./srcs/back/:/app/
+            #- /dev/null:/app/node_modules
+            #- /dev/null:/app/dist
+  database:
+          image: postgres:bullseye
+          env_file:
+            - srcs/back/.env
+          ports:
+            - 5432:5432
+          volumes:
+            #- ./data/db:/var/lib/postgresql/data
+            - "database_volume:/var/lib/postgresql/data"
+  pgadmin:
+          image: dpage/pgadmin4:latest
+          environment:
+            PGADMIN_DEFAULT_EMAIL: admin@admin.com
+            PGADMIN_DEFAULT_PASSWORD: pssw
+          volumes:
+            - ./data/pgadmin/pgadmin_servers.json:/pgadmin4/servers.json
+          ports:
+            - 5050:80
+          depends_on:
+            - database
+  frontend:
+          build:
+            context: ./srcs/front
+          restart: always
+          env_file:
+            - ./srcs/front/.env
+          volumes:
+            - ./srcs/front/:/app/
+          ports:
+            - 80:5173
+          depends_on:
+            - back
